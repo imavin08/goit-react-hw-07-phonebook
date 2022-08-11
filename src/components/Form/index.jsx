@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
 import css from './Form.module.css';
-import { add } from '../../redux/myItems/slice';
+import { addContact } from 'redux/operations/operations';
 
 function Form() {
   const [name, SetName] = useState('');
   const [number, SetNumber] = useState('');
 
-  const contactsValue = useSelector(state => state.items);
+  const contactsValue = useSelector(state => state.entities);
   const dispatch = useDispatch();
 
   const handleInputChange = e => {
@@ -29,7 +28,7 @@ function Form() {
     if (namevalue.includes(name.toLowerCase())) {
       alert(`${name} is alredy in contacts`);
     } else {
-      dispatch(add({ name, number, id: nanoid() }));
+      dispatch(addContact({ name, phone: number }));
       SetName('');
       SetNumber('');
     }
