@@ -1,15 +1,18 @@
 import ContactsList from './ContactsList';
 import Form from './Form';
-import Filter from './Filter';
+import css from './App.module.css';
 
 function App() {
   return (
-    <div>
-      <h1>Phoneboock</h1>
-      <Form />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactsList />
+    <div className={css.container}>
+      <div className={css.box}>
+        <h1 className={css.title}>Phoneboock</h1>
+        <Form />
+      </div>
+      <div className={css.contactsBox}>
+        <h2 className={css.titleContacts}>Contacts</h2>
+        <ContactsList />
+      </div>
     </div>
   );
 }

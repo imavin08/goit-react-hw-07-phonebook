@@ -1,25 +1,34 @@
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations/operations';
 import css from './ContactsItem.module.css';
-import { LoaderBtn } from 'components/Loader';
+import { LoaderDelete } from 'components/Loader';
 import { useSelector } from 'react-redux';
 import Notiflix from 'notiflix';
+import { useEffect } from 'react';
 
 export const ContactsItem = ({ name, id, phone }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.isLoading);
 
-  const onDeleteClick = id => {
-    dispatch(deleteContact(id));
-    Notiflix.Notify.failure(`You have removed ${name} contact from your list`);
-  };
+  useEffect(() => {
+    return () => {
+      if (isLoading === id) {
+        Notiflix.Notify.failure(
+          `You have removed ${name} contact from your list`
+        );
+      }
+    };
+  }, [id, isLoading, name]);
 
   return (
     <li className={css.item}>
       {name}: {phone},
-      <button className={css.button} onClick={() => onDeleteClick(id)}>
+      <button
+        className={css.button}
+        onClick={() => dispatch(deleteContact(id))}
+      >
         Delete
-        {isLoading === 'delete' && <LoaderBtn />}
+        {isLoading === id && <LoaderDelete />}
       </button>
     </li>
   );

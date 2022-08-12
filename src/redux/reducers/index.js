@@ -4,7 +4,7 @@ import {
   deleteContact,
   addContact,
 } from 'redux/operations/operations';
-import { filter } from '../actions/contactsActions';
+import { filter, setIsLoading } from '../actions/contactsActions';
 
 export const filterReducer = createReducer('', {
   [filter]: (_, action) => action.payload.toLowerCase(),
@@ -18,17 +18,21 @@ export const entities = createReducer([], {
 });
 
 export const isLoading = createReducer(false, {
-  [fetchContacts.pending]: () => 'add',
+  [fetchContacts.pending]: () => 'fetch',
   [fetchContacts.fulfilled]: () => false,
   [fetchContacts.rejected]: () => false,
 
-  [deleteContact.pending]: () => 'delete',
+  [deleteContact.pending]: (a, b) => {
+    return b.meta.arg;
+  },
   [deleteContact.fulfilled]: () => false,
   [deleteContact.rejected]: () => false,
 
   [addContact.pending]: () => 'add',
-  [addContact.fulfilled]: () => false,
+  [addContact.fulfilled]: () => 'addSuccess',
   [addContact.rejected]: () => false,
+
+  [setIsLoading]: () => false,
 });
 
 export const error = createReducer(null, {

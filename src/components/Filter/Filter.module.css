@@ -1,4 +1,11 @@
 .input {
-  display: block;
-  margin-top: 10px;
+  width: 150px;
+  margin-top: 5px;
+  border-radius: 5px;
+  outline: none;
+  border-color: transparent;
+}
+
+.filterBox {
+  width: 160px;
 }

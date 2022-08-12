@@ -28,7 +28,7 @@ const ContactsList = () => {
               <ContactsItem name={name} key={id} id={id} phone={phone} />
             ))
           : !isLoading && <p>You dont have contacts</p>}
-        {isLoading === 'add' && <Loader />}
+        {isLoading === 'fetch' && <Loader />}
       </ul>
     </>
   );
