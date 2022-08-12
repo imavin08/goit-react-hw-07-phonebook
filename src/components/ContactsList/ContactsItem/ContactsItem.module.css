@@ -1,0 +1,19 @@
+.button {
+  margin-left: 10px;
+  display: flex;
+
+  align-items: center;
+  height: 25px;
+  width: 80px;
+  border: none;
+  background-color: transparent;
+  color: red;
+  cursor: pointer;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  color: blue;
+}

@@ -14,19 +14,19 @@ export const entities = createReducer([], {
   [fetchContacts.fulfilled]: (_, action) => action.payload,
   [deleteContact.fulfilled]: (state, action) =>
     state.filter(item => item.id !== action.payload.id),
-  [addContact.fulfilled]: (state, action) => [...state, action.payload],
+  [addContact.fulfilled]: (state, action) => [action.payload, ...state],
 });
 
 export const isLoading = createReducer(false, {
-  [fetchContacts.pending]: () => true,
+  [fetchContacts.pending]: () => 'add',
   [fetchContacts.fulfilled]: () => false,
   [fetchContacts.rejected]: () => false,
 
-  [deleteContact.pending]: () => true,
+  [deleteContact.pending]: () => 'delete',
   [deleteContact.fulfilled]: () => false,
   [deleteContact.rejected]: () => false,
 
-  [addContact.pending]: () => true,
+  [addContact.pending]: () => 'add',
   [addContact.fulfilled]: () => false,
   [addContact.rejected]: () => false,
 });

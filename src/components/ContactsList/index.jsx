@@ -1,12 +1,15 @@
 import React from 'react';
-import css from './ContactsList.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchContacts, deleteContact } from 'redux/operations/operations';
+import { fetchContacts } from 'redux/operations/operations';
 import { useEffect } from 'react';
+import { ContactsItem } from './ContactsItem/item';
+import { Loader } from 'components/Loader';
 
 const ContactsList = () => {
   const contacts = useSelector(state => state.entities);
+  const isLoading = useSelector(state => state.isLoading);
   const dispatch = useDispatch();
+
   const filter = useSelector(state => state.filter);
 
   const searchName = () => {
@@ -18,19 +21,16 @@ const ContactsList = () => {
   }, [dispatch]);
 
   return (
-    <ul>
-      {searchName().map(({ name, id, phone }) => (
-        <li key={id}>
-          {name}: {phone},
-          <button
-            className={css.button}
-            onClick={() => dispatch(deleteContact(id))}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {contacts.length > 0
+          ? searchName().map(({ name, id, phone }) => (
+              <ContactsItem name={name} key={id} id={id} phone={phone} />
+            ))
+          : !isLoading && <p>You dont have contacts</p>}
+        {isLoading === 'add' && <Loader />}
+      </ul>
+    </>
   );
 };
 

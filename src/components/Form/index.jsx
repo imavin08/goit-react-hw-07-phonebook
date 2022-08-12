@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './Form.module.css';
 import { addContact } from 'redux/operations/operations';
+import Notiflix from 'notiflix';
 
 function Form() {
   const [name, SetName] = useState('');
@@ -26,11 +27,14 @@ function Form() {
     const namevalue = contactsValue.map(ar => ar.name.toLowerCase());
 
     if (namevalue.includes(name.toLowerCase())) {
-      alert(`${name} is alredy in contacts`);
+      Notiflix.Notify.warning(`${name} is alredy in contacts`);
     } else {
       dispatch(addContact({ name, phone: number }));
       SetName('');
       SetNumber('');
+      Notiflix.Notify.success(
+        `You have added the contact ${name}, to your list`
+      );
     }
   };
 
