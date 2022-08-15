@@ -4,23 +4,35 @@ import * as api from 'redux/api';
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async () => {
-    const contacts = await api.fetchContacts();
-    return contacts;
+    try {
+      const contacts = await api.fetchContacts();
+      return contacts;
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 );
 
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContacts',
   async id => {
-    const contact = await api.deleteContact(id);
-    return contact;
+    try {
+      const contact = await api.deleteContact(id);
+      return contact;
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 );
 
 export const addContact = createAsyncThunk(
   'contacts/addContacts',
   async ({ name, phone: number }) => {
-    const contact = await api.addContact({ name, phone: number });
-    return contact;
+    try {
+      const contact = await api.addContact({ name, phone: number });
+      return contact;
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 );
